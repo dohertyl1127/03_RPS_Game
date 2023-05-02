@@ -45,7 +45,7 @@ rps_list = ["rock", "paper", "scissors", "xxx"]
 rounds_played = 0
 rounds_lost = 0
 rounds_drawn = 0
-
+game_summary = []
 # ask for # of rounds, <enter> for infinite mode
 rounds = check_rounds()
 
@@ -104,15 +104,29 @@ while end_game == "no":
 
     rounds_played += 1
 
+    game_summary.append(result)
+
     if rounds_played >= rounds:
         break
 
-# print games stats
 rounds_won = rounds_played - rounds_lost - rounds_drawn
 
+percent_win = rounds_won / rounds_played * 100
+percent_lose = rounds_lost / rounds_played * 100
+percent_tie = rounds_drawn / rounds_played * 100
+# print games stats
+
 print()
-print("****End Game Summary****")
-print(f"won: {rounds_won} \t|\t  lost: {rounds_lost} \t|\t drawn: {rounds_drawn}")
+print("***** Game History *****")
+for item in game_summary:
+    print(item)
+
+print()
+
+print("***** Game Statistics *****")
+print(f"Wins: {rounds_won} ({round(percent_win,2)}%) ")
+print(f"loss: {rounds_lost} ({round(percent_lose, 2)}%) ")
+print(f"ties: {rounds_drawn} ({round(percent_tie, 2)}%) ")
 
 print()
 print("thanks for playing")
