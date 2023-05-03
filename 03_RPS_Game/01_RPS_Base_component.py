@@ -46,6 +46,7 @@ rounds_played = 0
 rounds_lost = 0
 rounds_drawn = 0
 game_summary = []
+
 # ask for # of rounds, <enter> for infinite mode
 rounds = check_rounds()
 
@@ -71,11 +72,12 @@ while end_game == "no":
     choose = choice_checker(choose_instruction, rps_list,
                             choose_error)
 
+    if choose == "xxx":
+        break
+
     comp_choice = random.choice(rps_list[:-1])
     print()
     print(f"Comp Choice: {comp_choice}")
-    if choose == "xxx":
-        break
 
     # rest of loop / game
     print()
@@ -101,32 +103,38 @@ while end_game == "no":
 
     print()
     print("result: ", result)
+    outcome = f"Round {rounds_played + 1}: {result}"
+    game_summary.append(outcome)
 
     rounds_played += 1
-
-    game_summary.append(result)
 
     if rounds_played >= rounds:
         break
 
 rounds_won = rounds_played - rounds_lost - rounds_drawn
 
-percent_win = rounds_won / rounds_played * 100
-percent_lose = rounds_lost / rounds_played * 100
-percent_tie = rounds_drawn / rounds_played * 100
-# print games stats
+if rounds_played >= 1:
+    percent_win = rounds_won / rounds_played * 100
+    percent_lose = rounds_lost / rounds_played * 100
+    percent_tie = rounds_drawn / rounds_played * 100
 
-print()
-print("***** Game History *****")
-for item in game_summary:
-    print(item)
+    # print games stats
 
-print()
 
-print("***** Game Statistics *****")
-print(f"Wins: {rounds_won} ({round(percent_win,2)}%) ")
-print(f"loss: {rounds_lost} ({round(percent_lose, 2)}%) ")
-print(f"ties: {rounds_drawn} ({round(percent_tie, 2)}%) ")
 
-print()
-print("thanks for playing")
+    print()
+    print("***** Game History *****")
+    for item in game_summary:
+        print(item)
+
+    print()
+
+    print("***** Game Statistics *****")
+    print(f"Wins: {rounds_won} ({round(percent_win, 2)}%) ")
+    print(f"loss: {rounds_lost} ({round(percent_lose, 2)}%) ")
+    print(f"ties: {rounds_drawn} ({round(percent_tie, 2)}%) ")
+
+    print()
+    print("thanks for playing")
+else:
+    print("Theres no history")
